@@ -39,41 +39,79 @@ $(document).ready(function() {
 
 	// Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
 	$('#tweet-submit').on('click', function() {
-		var tweetWords = $('textarea').val();
-		var newUser = '@akim';
-		var newFull = 'Ann Kim';
+		var newPic = $('.avatar').attr('src');
+		var tweetWords = $('.tweet-compose').val();
+		var numRet = 0;
+		var numFav = 0;
+		var newUser = '@alagoo';
+		var newFull = 'Alan Lagoon';
+		var fullDate = new Date($.now());
+			var minutes = function() {
+				if (fullDate.getMinutes() < 10) {
+					return "0" + fullDate.getMinutes();
+				} else {
+					return fullDate.getMinutes();
+				}
+			};
+			var amOrPm = function() {
+				if (fullDate.getHours() < 12) {
+					return "AM";
+				} else {
+					return "PM";
+				}
+			};
+			var timeNow = fullDate.getHours() + ":" + minutes(fullDate.getMinutes()) + " " + amOrPm(fullDate.getHours()); 
 
-		$('.content').clone(true).prependTo('#stream').addClass('.clone');
-		$('.clone').find('.avatar').replaceWith('<img class="avatar" src="img/alagoon.jpg" />');
-		$('.clone').find('.username').html(newUser);
-		$('.clone').find('.fullname').html(newFull);
-		$('.clone').find('.text-compose').html(tweetWords);
 
-		// var $cloneUsername = $('.content').clone();
-		// $cloneUsername.html('<span>@alagoon</span>');
-		// $('.content').prepend($cloneUsername);
+			var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			var currentMonth = monthNames[fullDate.getMonth()];
 
-		// var $cloneFullname
-		// $cloneFullname.html('<strong>A Lagoon</strong>');
-		// $('.content').prepend($cloneFullname);
+			var currentYear = fullDate.getFullYear().toString().substr(2, 2);
+	
+			var dateNow = fullDate.getDate() + " " + currentMonth + " " + currentYear;
 
-		// $('.content').find('.fullname').attr('Ann Kim');
-		// $('.content').prepend('@akim').addClass('username');
-		// $('.content').prepend('Ann Kim').addClass('fullName');
-		// $('.content').after($('.tweet-text'));
-
-	// $('#tweet-submit').on('click', function() {
-	// 	// var tweetText = $('.tweet-compose').text();
-	// 	$('.content').clone(true).prependTo('#stream');
-
+		$('#stream').prepend(
+			'<div class="tweet">' +
+			'<div class="content">' +
+			'<img class="avatar" src="img/alagoon.jpg">' +
+			'<strong class="fullname">' + newFull + ' ' + '</strong>' + 
+			'<span class="username">' + newUser + '</span>' +
+			'<p class="tweet-text">' + tweetWords + '</p>' +
+			'<div class="tweet-actions">' +
+				'<ul>' +
+					'<li><span class="icon action-reply"></span> Reply</li>' +
+					'<li><span class="icon action-retweet"></span>Retweet</li>' +
+					'<li><span class="icon action-favorite"></span>Favorite</li>' +
+					'<li><span class="icon action-more"></span>More</li>' +
+				'</ul>' +
+			'</div>' +
+			'<div class="stats">' +
+				'<div class="retweets">' +
+					'<p class="num-retweets">' + numRet + '</p>' + '<p>RETWEETS</p>' +
+				'</div>' +
+				'<div class="favorites">' +
+					'<p class="num-favorites">' + numFav + '</p>' + '<p>FAVORITES</p>' +
+				'</div>' +
+				'<div class="time">' + timeNow + " - " + dateNow + '</div>' +
+			'</div>'
+		);
 	});
 
 
 	// Step 6 - reveal tweet actions only when hover over the tweet (otherwise remain hidden)
+	$('.tweet-actions').hide();
 
+	$('.tweet').hover(function() {
+		$('.tweet-actions').toggle();
+	});
 
 
 	// Step 7 - hide retweets/timestamp/replay areas by default; expand these if click on tweet
+	$('.stats').hide();
+
+	$('.tweet').on('click', function(){
+		$('.stats').toggle();
+	});
 });
 
 
