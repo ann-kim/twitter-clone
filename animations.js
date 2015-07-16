@@ -39,10 +39,13 @@ $(document).ready(function() {
 
 	//Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
 	$('#tweet-submit').on('click', function() {
-		$('.content').prepend($('.tweet-compose'));
-		// $('.content').addClass('fullname');
-		// $('.content').addClass('username');
-		// $('.content').addClass('avatar);
+		// var tweetText = $('.tweet-compose').text();
+		$('.content').clone(true).prependTo('#stream');
+
+		$('.content').prepend('@akim').addClass('username');
+		$('.content').prepend('Ann Kim').addClass('fullName');
+		$('.content').prepend('<img class="avatar" src="img/alagoon.jpg" />')
+		$('.content').after($('.tweet-text'));
 	});
 
 	
