@@ -15,7 +15,7 @@ $(document).ready(function() {
 		} if (left > 10) {
 			$('#char-count').css('color', '#999');
 		} 
-	// Step 4 - diable 'Tweet' button when more than 140 characters
+	// Step 4 - disable 'Tweet' button when more than 140 characters
 		if (left < 0) {
 			$('#tweet-submit').prop('disabled', true);
 		} if (left > 0) {
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		}
 	});
 
-	//Alternate Step 3
+	// Alternate Step 3
 	// $('.tweet-compose').on('keyup', function() {
 	// 	var text = $('.tweet-compose').val();
 	// 	var charLeft = 140 - text.length;
@@ -37,18 +37,43 @@ $(document).ready(function() {
 	// });
 
 
-	//Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
+	// Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
 	$('#tweet-submit').on('click', function() {
-		// var tweetText = $('.tweet-compose').text();
-		$('.content').clone(true).prependTo('#stream');
+		var tweetWords = $('textarea').val();
+		var newUser = '@akim';
+		var newFull = 'Ann Kim';
 
-		$('.content').prepend('@akim').addClass('username');
-		$('.content').prepend('Ann Kim').addClass('fullName');
-		$('.content').prepend('<img class="avatar" src="img/alagoon.jpg" />')
-		$('.content').after($('.tweet-text'));
+		$('.content').clone(true).prependTo('#stream').addClass('.clone');
+		$('.clone').find('.avatar').replaceWith('<img class="avatar" src="img/alagoon.jpg" />');
+		$('.clone').find('.username').html(newUser);
+		$('.clone').find('.fullname').html(newFull);
+		$('.clone').find('.text-compose').html(tweetWords);
+
+		// var $cloneUsername = $('.content').clone();
+		// $cloneUsername.html('<span>@alagoon</span>');
+		// $('.content').prepend($cloneUsername);
+
+		// var $cloneFullname
+		// $cloneFullname.html('<strong>A Lagoon</strong>');
+		// $('.content').prepend($cloneFullname);
+
+		// $('.content').find('.fullname').attr('Ann Kim');
+		// $('.content').prepend('@akim').addClass('username');
+		// $('.content').prepend('Ann Kim').addClass('fullName');
+		// $('.content').after($('.tweet-text'));
+
+	// $('#tweet-submit').on('click', function() {
+	// 	// var tweetText = $('.tweet-compose').text();
+	// 	$('.content').clone(true).prependTo('#stream');
+
 	});
 
-	
+
+	// Step 6 - reveal tweet actions only when hover over the tweet (otherwise remain hidden)
+
+
+
+	// Step 7 - hide retweets/timestamp/replay areas by default; expand these if click on tweet
 });
 
 
