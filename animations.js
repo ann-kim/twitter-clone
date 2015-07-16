@@ -1,31 +1,53 @@
 $(document).ready(function() {
-	// Step 2
+	// Step 2 - double size of textarea when user clicks textarea; reveal 'Tweet' button and character count
 	$('.tweet-compose').on('click', function() {
 		$('.tweet-compose').css({'width': '100%', 'height': '5em'}, 300);
 		$('#tweet-controls').css('display', 'block');
 	});
 
 
-	// Step 3 - decrease character count as type
+	// Step 3 - decrease character count as type; character count turns red when 10 or less characters
 	$('.tweet-compose').keydown(function() {
 		var left = 140 - $(this).val().length;
 		$('#char-count').text(left);
-	});
-
-
-	//Step 3 - character count turns red when 10 or less characters left
-	$('.tweet-compose').on('keyup', function() {
-		var text = $('.tweet-compose').val();
-		var charLeft = 140 - text.length;
-		console.log(charLeft);
-		$('#char-count').html(charLeft);
-		if (charLeft < 11) {
+		if (left < 11) {
 			$('#char-count').css('color', 'red');
-		} if (charLeft > 10) {
+		} if (left > 10) {
 			$('#char-count').css('color', '#999');
+		} 
+	// Step 4 - diable 'Tweet' button when more than 140 characters
+		if (left < 0) {
+			$('#tweet-submit').prop('disabled', true);
+		} if (left > 0) {
+			$('#tweet-submit').prop('disabled', false);
 		}
 	});
 
-	// Step 4 - Disable 'Tweet' button when more than 140 characters
+	//Alternate Step 3
+	// $('.tweet-compose').on('keyup', function() {
+	// 	var text = $('.tweet-compose').val();
+	// 	var charLeft = 140 - text.length;
+	// 	console.log(charLeft);
+	// 	$('#char-count').html(charLeft);
+	// 	if (charLeft < 11) {
+	// 		$('#char-count').css('color', 'red');
+	// 	} if (charLeft > 10) {
+	// 		$('#char-count').css('color', '#999');
+	// 	}
+	// });
+
+
+	//Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
+	$('#tweet-submit').on('click', function() {
+		$('.content').prepend($('.tweet-compose'));
+		// $('.content').addClass('fullname');
+		// $('.content').addClass('username');
+		// $('.content').addClass('avatar);
+	});
+
 	
 });
+
+
+
+
