@@ -39,7 +39,6 @@ $(document).ready(function() {
 
 	// Step 5 - add new tweet to tweet stream when 'Tweet' button is clicked w/username and profile pic
 	$('#tweet-submit').on('click', function() {
-		var newPic = $('.avatar').attr('src');
 		var tweetWords = $('.tweet-compose').val();
 		var numRet = 0;
 		var numFav = 0;
